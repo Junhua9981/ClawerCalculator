@@ -35,11 +35,16 @@
         .item-container{
             white-space: nowrap;
             overflow-x: auto;
-            height: 10%;
+            /* height: 10%; */
+            height: 100%;
         }
         .item-selector{
             font-size: medium;
             width: 20%;
+        }
+        .add-item-selector{
+            font-size: medium;
+            width: 40%;
         }
         .postive{
             color: green;
@@ -50,11 +55,17 @@
         #container{
             height: 100vh;
         }
-        #right{
-            height: 80vh;
+        .top {
+            height: 10vh;
+        }
+        .mid{
+            height: 60vh;
+        }
+        .bot{
+            height: 20vh;
         }
         .add-btn{
-            height: 60vh;
+            height: 40vh;
         }
         .equal-btn{
             height: 20vh;
@@ -62,12 +73,19 @@
     </style>
 </head>
 <body>
-    <div class="row container" id="container">
-        <div class="col-12 text-center item-container" id="item_container">
+    <div  id="container">
+    <div class="row top">
+        <div class="col-8 text-center item-container" id="item_container">
             <button class="item-selector" data-value="25"> 25 </button>
-            <button class="item-selector" data-value="25"> 40 </button>
+            <button class="item-selector" data-value="40"> 40 </button>
+            
+        </div>
+        <div class="col-4">
+            <textarea class="item-selector input_item" data-value="0" rows="1" cols="10"> 0 </textarea>
             <button class="add-item-selector" id="add_new_item"> add new </button>
         </div>
+    </div>
+    <div class="row mid">
         <div class="col-8">
             =
             <br>
@@ -75,7 +93,7 @@
                 0
             </p>
         </div>
-        <div class="col-4" id="right">
+        <div class="col-4" >
             <div class = "row">
                 <div class = "col-12 add-btn">
                     <button> + </button>
@@ -86,7 +104,8 @@
                 </div> 
             </div>
         </div>
-        <div class="col-12"> =
+    </div>
+        <div class="row bot"> =
             <p id="all_val">
                 0 
             </p>
@@ -120,8 +139,9 @@
             var item_container = document.querySelector("#item_container");
             var new_item = document.createElement("button");
             new_item.classList.add("item-selector");
-            new_item.setAttribute("data-value", "25");
-            new_item.innerHTML = "25";
+            let new_value = document.querySelector(".input_item").value;
+            new_item.setAttribute("data-value", new_value);
+            new_item.innerHTML = new_value;
             new_item.addEventListener("click", select_item);
             item_container.appendChild(new_item);
         }
@@ -137,9 +157,9 @@
             color_number(now_val, now_val_el);
         }
         function equal(){
+            all_val += now_val;
             now_val = 0;
             now_val_el.innerHTML = now_val;
-            all_val += now_val;
             document.querySelector("#all_val").innerHTML = all_val;
             color_number(all_val, document.querySelector("#all_val"));
         }
